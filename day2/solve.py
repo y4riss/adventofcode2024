@@ -5,15 +5,12 @@ with open("input.txt")as file:
         data.append(list(x))
         
 
+def solve(row):
 
-def first_part():
-    
-    ans = 0
-    for row in data:
         n = len(row)
-
         increasing = 0
         decreasing = 0
+        ans = 0
         for i in range(1,n):
             c = row[i-1] - row[i]
 
@@ -28,12 +25,29 @@ def first_part():
                 break
         if increasing == n-1 or decreasing==n-1:
             ans+=1
-        else:
-            ans+=0
+        return ans
+def first_part():
+    
+    ans = 0
+    for row in data:
+        ans += solve(row)
     print(ans)
 
 def second_part():
-    pass
+
+    ans = 0
+    for row in data:
+        n = len(row)
+        for i in range(n):
+            rowcp = row.copy()
+            del rowcp[i]
+            if solve(rowcp):
+                ans+=1
+                break
+    print(ans)
+
+        
+
 
 
 
