@@ -11,73 +11,20 @@ def check(i,j, n , m):
     ans = 0
     if grid[i][j] != 'X':
         return 0
-    
-    # check XMAS forward
-    if j + 3 < m:
-        k = 1
-        while k < 4 and grid[i][j + k] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
 
-    # check XMAS backward (SAMX) 
-    if j - 3 >= 0:
-        k = 1
-        while k < 4 and grid[i][j - k] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-
-
-    # check vertical down
-    if i + 3 < n:
-        k = 1
-        while k < 4 and grid[i + k][j] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-        
-    # check vertical up
-    if i - 3 >= 0:
-        k = 1
-        while k < 4 and grid[i - k][j] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-
-    # check right diagonal down
-    if i + 3 < n and j + 3 < m:
-        k = 1
-        while k < 4 and grid[i + k][j + k] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-
-    # check left diagonal down
-    if i + 3 < n and j - 3 >= 0:
-        k = 1
-        while k < 4 and grid[i + k][j - k] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-        
-    # check right diagonal up
-    if i - 3 >= 0 and j + 3 < m:
-        k = 1
-        while k < 4 and grid[i - k][j + k] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-
-    # check left diagonal up
-    if i - 3 >= 0 and j - 3 >=0:
-        k = 1
-        while k < 4 and grid[i - k][j - k] == XMAS[k]:
-            k+=1
-        if k == 4:
-            ans +=1
-
+    # forward, backward , up, down, diag down right, diag down left, diag up right, diag up left
+    directions = [(0,1), (0, -1), (-1,0), (1,0), (1,1),(1,-1), (-1,1), (-1,-1)]
+    def in_bound(x,y):
+        return x >= 0 and x < n  and y >= 0 and y < m
+    for dx,dy in directions:
+        good = 1 
+        for k in range(1,4):
+            if not in_bound(i + dx * k , j + dy* k) or grid[i + dx * k][j + dy*k] != XMAS[k]:
+                    good = 0 
+                    break
+        ans += good
     return ans
+
 
 def check_2(i,j,n , m):
 
