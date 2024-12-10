@@ -79,8 +79,56 @@ def check(i,j, n , m):
 
     return ans
 
+def check_2(i,j,n , m):
+
+    MAS = 0
+    if grid[i][j] != 'A':
+        return 0
+    
+    if not (i - 1 >= 0 and j - 1 >= 0 and i + 1 < n and j + 1 < m):
+        return 0
+
+    """
+    two possibilities :
+
+    . . .
+    . A .
+    . . .
+
+    
+    either 
+    M . .
+    . A .
+    . . S
+
+    or 
+    S . .
+    . A .
+    . . M
+
+    and for each one , either :
+    . . M
+    . A .
+    S . .
+
+    or 
+    . . S
+    . A .
+    M . .
+    """
 
 
+    # diagonal
+    if grid[i - 1][j - 1] == 'M' and grid[i + 1][j + 1] == 'S' or grid[i - 1][j - 1] == 'S' and grid[i+1][j + 1] == 'M':
+        MAS += 1
+    
+    if grid[i - 1][j + 1] == 'M' and grid[i + 1][j - 1] == 'S' or grid[i - 1][j + 1] == 'S' and grid[i  + 1][j - 1] == 'M':
+        MAS += 1
+
+    if MAS == 2:
+        return 1 
+    return 0
+    
 def first_part():
 
 
@@ -93,7 +141,14 @@ def first_part():
     print(ans)
 
 def second_part():
-    pass
+    n = len(grid)
+    m = len(grid[0])
+    ans = 0
+    for i in range(n):
+        for j in range(m):
+            ans += check_2(i,j, n , m)
+    print(ans)
+
 
 
 n = input("part ? > ")
