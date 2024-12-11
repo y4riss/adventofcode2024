@@ -36,7 +36,28 @@ def first_part():
     print(ans)
 
 def second_part():
-    pass
+
+    ans = 0
+
+    for update in updates:
+        n = len(update)
+        already_good = True
+        while True:
+            good = True
+            for i in range(n - 1):
+                for j in range(i + 1 , n):
+                    if update[j] in rules and update[i] in rules[update[j]]:
+                        good = False
+                        already_good = False
+                        update[i],update[j] = update[j],update[i]
+            
+            if already_good:
+                break
+            if good:
+                ans += int(update[n//2])
+                break
+    print(ans)
+
 
 
 n = input("part ? > ")
