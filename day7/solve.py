@@ -41,7 +41,41 @@ def first_part():
     print(ans)
 
 def second_part():
-    pass
+
+    def generateOperations(level , n, arr, target, combin=[]):
+
+        if level == n - 1:
+
+            i = 1
+            ans = arr[0]
+            for op in combin:
+                if op == "+":
+                    ans += arr[i]
+                elif op == '*':
+                    ans *= arr[i]
+                else:
+                    ans = int(f"{ans}{arr[i]}")
+                i+=1
+            return ans == target
+
+        combin.append("+")
+        x = generateOperations(level + 1, n, arr, target, combin)
+        combin.pop()
+        combin.append("*")
+        y = generateOperations(level + 1, n,arr , target, combin)
+        combin.pop()
+        combin.append("|")
+        z = generateOperations(level + 1, n,arr , target, combin)
+        combin.pop()
+        return x or y or z
+
+    ans = 0
+    for eq in equations:
+        val,numbers = eq
+        if generateOperations(0, len(numbers),numbers, val):
+            ans += val
+    print(ans)
+
 
 
 option = input("part ? > ")
