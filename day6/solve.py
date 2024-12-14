@@ -138,7 +138,7 @@ def second_part():
             grid[i][j] = '.'
 
     end = time()
-    print(f"time took : {end - start} ms")
+    print(f"time took : {end - start} s")
     print(ans)
     
 

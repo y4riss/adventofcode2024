@@ -7,72 +7,39 @@ with open("input.txt")as file:
         numbers = list(map(int, numbers))
         equations.append([int(value), numbers])
 
-        
-
 def first_part():
 
-    def generateOperations(level , n, arr, target, combin=[]):
+    def generateOperations(i, n, arr, target, sum):
 
-        if level == n - 1:
+        if i == n:
+            return sum == target
 
-            i = 1
-            ans = arr[0]
-            for op in combin:
-                if op == "+":
-                    ans += arr[i]
-                else:
-                    ans *= arr[i]
-                i+=1
-            return ans == target
-
-        combin.append("+")
-        x = generateOperations(level + 1, n, arr, target, combin)
-        combin.pop()
-        combin.append("*")
-        y = generateOperations(level + 1, n,arr , target, combin)
-        combin.pop()
-        return x or y
+        return generateOperations(i+ 1, n, arr, target, sum + arr[i]) \
+        or generateOperations(i+ 1, n,arr , target, sum * arr[i])
 
     ans = 0
     for eq in equations:
         val,numbers = eq
-        if generateOperations(0, len(numbers),numbers, val):
+        if generateOperations(1, len(numbers),numbers, val, numbers[0]):
             ans += val
     print(ans)
 
+
 def second_part():
 
-    def generateOperations(level , n, arr, target, combin=[]):
+    def generateOperations(i, n, arr, target, sum):
 
-        if level == n - 1:
+        if i == n:
+            return sum == target
 
-            i = 1
-            ans = arr[0]
-            for op in combin:
-                if op == "+":
-                    ans += arr[i]
-                elif op == '*':
-                    ans *= arr[i]
-                else:
-                    ans = int(f"{ans}{arr[i]}")
-                i+=1
-            return ans == target
-
-        combin.append("+")
-        x = generateOperations(level + 1, n, arr, target, combin)
-        combin.pop()
-        combin.append("*")
-        y = generateOperations(level + 1, n,arr , target, combin)
-        combin.pop()
-        combin.append("|")
-        z = generateOperations(level + 1, n,arr , target, combin)
-        combin.pop()
-        return x or y or z
+        return generateOperations(i+ 1, n, arr, target, sum + arr[i]) \
+        or generateOperations(i+ 1, n,arr , target, sum * arr[i]) \
+        or generateOperations(i+ 1, n,arr , target, int(f"{sum}{arr[i]}"))
 
     ans = 0
     for eq in equations:
         val,numbers = eq
-        if generateOperations(0, len(numbers),numbers, val):
+        if generateOperations(1, len(numbers),numbers, val, numbers[0]):
             ans += val
     print(ans)
 

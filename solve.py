@@ -10,8 +10,8 @@ def second_part():
     pass
 
 
-n = input("part ? > ")
-if n == '1':
+option = input("part ? > ")
+if option == '1':
     first_part()
 else:
     second_part()
