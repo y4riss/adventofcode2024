@@ -19,33 +19,23 @@ def first_part():
     def in_bound(node):
         i,j = node 
         return i >=0 and i < n and j >=0 and j < m
+    
     for a in antennas:
-
         arr = antennas[a]
         nb_antennas = len(arr)
         for i in range(nb_antennas - 1):
-            for j in range(i + 1 , nb_antennas):
-                d = (abs(arr[i][0] - arr[j][0]) , abs(arr[i][1] - arr[j][1]))
+            for j in range(0 , nb_antennas):
+                if i == j:
+                    continue
                 x,y = arr[i]
                 a,b = arr[j]
-                antinode_1 = [0,0]
-                antinode_2 = [0,0]
-                if x <= a:
-                    antinode_1[0] = x - d[0]
-                    antinode_2[0] = a + d[0]
-                else:
-                    antinode_1[0] = x + d[0]
-                    antinode_2[0] = a - d[0]
-                if y <= b:
-                    antinode_1[1] = y - d[1]
-                    antinode_2[1] = b + d[1]
-                else:
-                    antinode_1[1] = y + d[1]
-                    antinode_2[1] = b - d[1]
+                d = (a - x , b - y)
+                antinode_1 = (x - d[0],y-d[1])
+                antinode_2 = (a + d[0],b+d[1])
                 if in_bound(antinode_1):
-                    result.add(tuple(antinode_1))
+                    result.add(antinode_1)
                 if in_bound(antinode_2):
-                    result.add(tuple(antinode_2))
+                    result.add(antinode_2)
     print(len(result))
 
 
