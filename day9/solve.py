@@ -72,12 +72,15 @@ def second_part():
     n = len(files)
     i = n - 1
 
-    # check all available spaces from left to right
+    # go through files from right to left
     while i >= 0:
 
         file_idx, file_size = files[i]
         curr_file = blocks[file_idx]
 
+
+
+        # check all available spaces from left to right
         for j in range(len(spaces)):
 
             idx, length = spaces[j]
