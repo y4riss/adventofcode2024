@@ -53,10 +53,6 @@ def second_part():
                 antennas[g[i][j]].append((i,j))
     
     result = set()
-    def in_bound(node):
-        i,j = node 
-        return i >=0 and i < n and j >=0 and j < m
-
     for a in antennas:
         arr = antennas[a]
         nb_antennas = len(arr)
