@@ -82,7 +82,7 @@ def second_part():
 
             idx, length = spaces[j]
 
-            # if space is available, fill it
+            # if space is available and file is actually in the right and spaces on left, fill space
             if length >= file_size and file_idx > idx:
                 # fill from idx to idx+length with curr_file, and from file_idx to file_idx+file_size with dots
                 for k in range(file_size):
