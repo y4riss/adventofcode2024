@@ -1,19 +1,11 @@
 g = []
 with open("input.txt")as file:
     for line in file:
-        # g.append(list(map(int,line.strip())))
-        row = []
-        for x in line.strip():
-            if x == '.':
-                row.append(-1)
-            else:
-                row.append(int(x))
-        g.append(row)
+        g.append(list(map(int,line.strip())))
 
 
 def first_part():
 
-    print(g)
     n = len(g)
     m = len(g[0])
     ans = 0
