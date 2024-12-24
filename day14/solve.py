@@ -48,7 +48,23 @@ def first_part():
     print(ans)
 
 def second_part():
-    pass
+
+    # look for a config such that there are no overlapping robots
+
+    m = 101
+    n = 103
+    rep = 0
+    while True:
+        count = defaultdict(lambda :0)
+        for robot in robots:
+            x = (m + robot[0][0] + robot[1][0] * rep) % m
+            y = (n + robot[0][1] + robot[1][1] * rep) % n
+            count[(x,y)]+=1
+
+        if len(count) == len(robots):
+            break
+        rep+=1
+    print(rep)
 
 
 option = input("part ? > ")
